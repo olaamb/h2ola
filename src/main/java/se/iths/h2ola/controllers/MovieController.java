@@ -1,8 +1,9 @@
 package se.iths.h2ola.controllers;
 
+
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import se.iths.h2ola.dtos.MovieDto;
 import se.iths.h2ola.dtos.MovieGenre;
 import se.iths.h2ola.services.Service;
@@ -15,12 +16,14 @@ public class MovieController {
 
     private final Service service;
 
-    public MovieController(Service service) {
+    public MovieController(Service service)
+    {
         this.service = service;
     }
 
     @GetMapping("/movies")
-    public List<MovieDto> all() {
+    public List<MovieDto> all()
+    {
         return service.getAllMovies();
     }
 
@@ -29,6 +32,11 @@ public class MovieController {
         return service.getOne(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Id " + id + " not found."));
+    }
+
+    @GetMapping("/movies/search/{title}")
+    public List<MovieDto> title(@PathVariable String title) {
+        return service.getAllByTitle(title);
     }
 
     @PostMapping("/movies")

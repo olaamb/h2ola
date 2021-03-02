@@ -6,8 +6,9 @@ import org.springframework.web.server.ResponseStatusException;
 import se.iths.h2ola.dtos.MovieDto;
 import se.iths.h2ola.dtos.MovieGenre;
 import se.iths.h2ola.entities.Movie;
+
+import se.iths.h2ola.repositories.MovieRepository;
 import se.iths.h2ola.mappers.MovieMapper;
-import se.iths.h2ola.repositories.MovieRepsitory;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,46 +17,53 @@ import java.util.Optional;
 public class MovieService implements se.iths.h2ola.services.Service {
 
     private final MovieMapper movieMapper;
-    private MovieRepsitory movieRepsitory;
+    private MovieRepository movieRepository;
 
-    public MovieService(MovieRepsitory movieRepsitory, MovieMapper movieMapper) {
-        this.movieRepsitory = movieRepsitory;
+    public MovieService(MovieRepository movieRepository, MovieMapper movieMapper) {
+        this.movieRepository = movieRepository;
         this.movieMapper = movieMapper;
     }
 
     @Override
-    public List<MovieDto> getAllMovies() {
-        return movieMapper.mapp(movieRepsitory.findAll());
+    public List<MovieDto> getAllMovies()
+    {
+        return movieMapper.mapp(movieRepository.findAll());
     }
 
     @Override
-    public Optional<MovieDto> getOne(Long id) {
-        return movieMapper.mapp(movieRepsitory.findById(id));
+    public Optional<MovieDto> getOne(Long id)
+    {
+        return movieMapper.mapp(movieRepository.findById(id));
     }
 
     @Override
-    public MovieDto createMovie(MovieDto person) {
-        if (person.getTitle().isEmpty())
+    public List<MovieDto> getAllByTitle(String title)
+    {
+        return movieMapper.mapp(movieRepository.findAllByTitle(title));
+    }
+
+    @Override
+    public MovieDto createMovie(MovieDto movie) {
+        if (movie.getTitle().isEmpty())
             throw new RuntimeException();
-
-        //Mapp from MovieDto to Movie
-        return movieMapper.mapp(movieRepsitory.save(movieMapper.mapp(person)));
+        return movieMapper.mapp(movieRepository.save(movieMapper.mapp(movie)));
     }
 
     @Override
-    public void delete(Long id) {
-        movieRepsitory.deleteById(id);
+    public void delete(Long id)
+    {
+        movieRepository.deleteById(id);
     }
 
     @Override
     public MovieDto replace(Long id, MovieDto movieDto) {
-        Optional<Movie> person = movieRepsitory.findById(id);
-        if( person.isPresent())
+        Optional<Movie> movie = movieRepository.findById(id);
+        if( movie.isPresent())
         {
-            Movie updatedMovie = person.get();
+            Movie updatedMovie = movie.get();
             updatedMovie.setTitle(movieDto.getTitle());
             updatedMovie.setGenre(movieDto.getGenre());
-            return movieMapper.mapp(movieRepsitory.save(updatedMovie));
+            return movieMapper.mapp(movieRepository.save(updatedMovie));
         }
         else
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
@@ -64,13 +72,13 @@ public class MovieService implements se.iths.h2ola.services.Service {
 
     @Override
     public MovieDto update(Long id, MovieGenre movieGenre) {
-        Optional<Movie> movie = movieRepsitory.findById(id);
+        Optional<Movie> movie = movieRepository.findById(id);
         if( movie.isPresent())
         {
             Movie updatedMovie = movie.get();
-            if( movieGenre.email != null)
-                updatedMovie.setGenre(movieGenre.email);
-            return movieMapper.mapp(movieRepsitory.save(updatedMovie));
+            if( movieGenre.genre != null)
+                updatedMovie.setGenre(movieGenre.genre);
+            return movieMapper.mapp(movieRepository.save(updatedMovie));
         }
         else
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,

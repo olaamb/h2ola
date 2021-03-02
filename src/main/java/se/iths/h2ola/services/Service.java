@@ -11,7 +11,9 @@ public interface Service {
 
     Optional<MovieDto> getOne(Long id);
 
-    MovieDto createMovie(MovieDto person);
+    List<MovieDto> getAllByTitle(String title);
+
+    MovieDto createMovie(MovieDto movie);
 
     void delete(Long id);
 

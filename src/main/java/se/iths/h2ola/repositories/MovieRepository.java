@@ -7,6 +7,6 @@ import se.iths.h2ola.entities.Movie;
 import java.util.List;
 
 @Repository
-public interface MovieRepsitory extends JpaRepository<Movie, Long> {
+public interface MovieRepository extends JpaRepository<Movie, Long> {
     List<Movie> findAllByTitle(String title);
 }

@@ -33,11 +33,5 @@ public class MovieMapper {
                 .stream()
                 .map(this::mapp)
                 .collect(Collectors.toList());
-
-//        List<MovieDto> personDtoList = new ArrayList<>();
-//        for (var person: all ) {
-//            personDtoList.add(mapp(person));
-//        }
-//        return personDtoList;
     }
 }

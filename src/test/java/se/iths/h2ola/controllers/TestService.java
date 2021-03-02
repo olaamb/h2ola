@@ -13,12 +13,14 @@ public class TestService implements Service {
     public List<MovieDto> getAllMovies() {
         return List.of(new MovieDto(1,"MovieTest1","MovieTest1"), new MovieDto(2,"MovieTest2","MovieTest2"));
     }
+
     @Override
     public Optional<MovieDto> getOne(Long id) {
         if( id == 1)
             return Optional.of(new MovieDto(1,"TestMovie","TestMovie"));
         return Optional.empty();
     }
+
     @Override
     public List<MovieDto> getAllByTitle(String title) {
         return List.of(new MovieDto(1,"MovieTest1","MovieTest1"), new MovieDto(2,"MovieTest2","MovieTest2"));
@@ -28,6 +30,7 @@ public class TestService implements Service {
     public MovieDto createMovie(MovieDto movie) {
         return null;
     }
+
     @Override
     public void delete(Long id) {
 

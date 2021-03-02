@@ -92,7 +92,7 @@ public class MvcTest {
     }
 
     @Test
-    void callingWithPutMappingUrlMoviesAndSendJsonShouldPutMovie() throws Exception {
+    void callingWithPutMappingUrlMoviesSlashIdAndSendAsJsonShouldPutMovie() throws Exception {
 
         mockMvc.perform(MockMvcRequestBuilders
                 .put("/movies/{id}", 2L)
@@ -103,7 +103,7 @@ public class MvcTest {
     }
 
     @Test
-    void callingWithPatchMappingUrlMoviesAndSendJsonShouldPutMovie() throws Exception {
+    void callingWithPatchMappingUrlMoviesSlashIdAndSendAsJsonShouldPatchMovie() throws Exception {
 
         mockMvc.perform(MockMvcRequestBuilders
                 .patch("/movies/{id}", 2L)

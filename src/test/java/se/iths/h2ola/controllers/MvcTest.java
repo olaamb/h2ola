@@ -25,12 +25,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.List;
 import java.util.Optional;
 
-
-@WebMvcTest(MovieController.class)
 //@Import(TestService.class)
+@WebMvcTest(MovieController.class)
 public class MvcTest {
 
-  //  @Autowired
+    //@Autowired
     @MockBean
     Service service;
 
@@ -120,5 +119,4 @@ public class MvcTest {
             throw new RuntimeException(e);
         }
     }
-
 }

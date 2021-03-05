@@ -27,9 +27,6 @@ class H2olaApplicationTests {
 	@Test
 	void contextLoads() {
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Accept", "application/xml");
-
 		MovieDto movieDto = new MovieDto(1L, "test", "test");
 		MovieDto movieDto2 = new MovieDto(2L, "test2", "test2");
 		MovieDto movieDto3 = new MovieDto(3L, "test3", "test3");

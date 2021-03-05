@@ -39,6 +39,12 @@ public class MovieController {
         return service.getAllByTitle(title);
     }
 
+    //    Below is an alternate search with search?=title instead
+//    @GetMapping("/movies/search")
+//    public List<MovieDto> title(@RequestParam String title) {
+//        return service.getAllByTitle(title);
+//    }
+
     @PostMapping("/movies")
     @ResponseStatus(HttpStatus.CREATED)
     public MovieDto create(@RequestBody MovieDto movie) {
